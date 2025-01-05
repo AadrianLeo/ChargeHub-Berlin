@@ -167,6 +167,7 @@ def charging_station_search_by_postal_code(dframe1, dframe2):
 
                 # Highlight the postal code area with a yellow overlay
                 for _, row in filtered_dframe2.iterrows():
+                    
                     folium.GeoJson(
                         data=row['geometry'],
                         style_function=lambda x: {
@@ -181,6 +182,8 @@ def charging_station_search_by_postal_code(dframe1, dframe2):
                 # Add markers to map
                 marker_cluster = MarkerCluster().add_to(m)
                 for _, row in merged_data.iterrows():
+                    st.subheader(f"Pincode : {row['PLZ']} ")
+                    st.subheader(f"Available : {row['Number']}")
                     folium.Marker(
                         location=[float(row['Breitengrad']), float(row['Längengrad'])],
                         popup=f"PIN: {row['PLZ']}, Number: {row['Number']}",

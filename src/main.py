@@ -12,7 +12,7 @@ print("Current working directory\n" + os.getcwd())
 import pandas                        as pd
 from shared.application import Preprocessor as  prep
 from shared.application import HelperTools         as ht
-from charging.application.services import Visualize
+from charging.application.services import app
 
 from config                          import pdict
 
@@ -36,7 +36,7 @@ def main():
     print("Population data processed.")
 
     # Create Streamlit app for visualization
-    Visualize.make_streamlit_electric_Charging_resid(gdf_lstat3, gdf_residents2)
+    app.make_streamlit_electric_Charging_resid(gdf_lstat3, gdf_residents2)
     print("Streamlit app running.")
     
 # -----------------------------------------------------------------------------------------------------------------------

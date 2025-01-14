@@ -1,18 +1,16 @@
 p                           = dict()
-p['picklefolder']           = 'pickles'
 # -----------------------------------
 
 p['geocode']                = 'PLZ'
 
-p["file_lstations"]         = "./shared/infrastructure/datasets/Ladesaeulenregister.csv"
-# p["file_buildings"]         = "gebaeude.csv"
-p["file_residents"]         = "./shared/infrastructure/datasets/plz_einwohner.csv"
-# p["file_amounttraf"]        = "Verkehrsaufkommen.csv"
+p["file_lstations"]         = "./charging/infrastructure/repositories/Ladesaeulenregister.csv"
+p["file_residents"]         = "./charging/infrastructure/repositories/plz_einwohner.csv"
+p["file_geodat_plz"]       = "./charging/infrastructure/repositories/geodata_berlin_plz.csv"
+p["file_geodat_dis"]       = "./charging/infrastructure/repositories/geodata_berlin_dis.csv"
+p["file_suggestions"]       = "./charging/infrastructure/repositories/suggestions.csv"
+p["file_reports"]       = "./charging/infrastructure/repositories/malfunction_reports.csv"
 
-p["file_geodat_plz"]       = "./shared/infrastructure/datasets/geodata_berlin_plz.csv"
-p["file_geodat_dis"]       = "./shared/infrastructure/datasets/geodata_berlin_dis.csv"
 
-# p["gebaeude_filter"]        = ["Freistehendes Einzelgebäude", "Doppelhaushälfte"]
 
 # -----------------------------------
 pdict = p.copy()

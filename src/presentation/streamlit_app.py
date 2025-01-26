@@ -4,34 +4,10 @@ from charging.application.services.search_service import SearchService
 import folium
 from streamlit_folium import st_folium
 import pandas as pd
+from charging.application.services.suggestions_service import SuggestionService
+from charging.application.services.malfunction_report_service import MalfunctionService
 
-# Initialize search service
-# search_service = SearchService()
-#
-# # Streamlit UI
-# st.title("ChargeHub Berlin ⚡")
-# postal_code = st.text_input("Enter your postal code:", "")
-#
-# if postal_code:
-#     # Get charging stations by postal code
-#     stations = search_service.search_by_postal_code(postal_code)
-#     if stations:
-#         # Create a map centered on Berlin
-#         m = folium.Map(location=[52.5200, 13.4050], zoom_start=12)
-#
-#         # Add markers to the map
-#         for station in stations:
-#             color = "green" if station.status == "available" else "red"
-#             folium.Marker(
-#                 location=station.location,
-#                 popup=f"{station.name} ({station.status})",
-#                 icon=folium.Icon(color=color)
-#             ).add_to(m)
-#
-#         # Display map in Streamlit
-#         st_folium(m, width=700, height=500)
-#     else:
-#         st.write("No charging stations found for this postal code.")
+
 def render_search_page(df_lstat):
     """Render the Search by Postal Code page."""
     search_service = SearchService(df_lstat)  # Initialize SearchService with data
@@ -64,23 +40,27 @@ def render_submit_suggestion_page(df_suggestions):
         comments = st.text_area("Comments")
         submitted = st.form_submit_button("Submit")
         if submitted:
-            new_suggestion = pd.DataFrame([{"postal_code": postal_code, "address": address, "comments": comments}])
-            df_suggestions = pd.concat([df_suggestions, new_suggestion], ignore_index=True)
-            df_suggestions.to_csv("./charging/infrastructure/repositories/suggestions.csv", sep=";", index=False)
+            suggestion_service = SuggestionService(df_suggestions)
+            df_suggestions = suggestion_service.add_suggestion(postal_code, address, comments)
             st.success("Your suggestion has been submitted!")
 
 
 def render_malfunction_report_page(df_lstat, df_reports):
+    """
+    Renders the malfunction report submission page in Streamlit.
+    """
     st.title("Report Malfunction at Charging Station")
+    malfunction_service = MalfunctionService(df_reports)
+
     with st.form("malfunction_report"):
         station_name = st.selectbox("Select Charging Station", df_lstat["Anzeigename (Karte)"].unique())
         report_description = st.text_area("Describe the Malfunction")
         report_location = st.text_input("Address")
         submitted = st.form_submit_button("Submit")
+
         if submitted:
-            new_report = pd.DataFrame({"station_name": [station_name], "report_description": [report_description], "address" : [report_location]})
-            df_reports = pd.concat([df_reports, new_report], ignore_index=True)
-            df_reports.to_csv("./charging/infrastructure/repositories/malfunction_reports.csv", sep=";", index=False)
+            # Add the malfunction report using the service
+            malfunction_service.add_malfunction_report(station_name, report_description, report_location)
             st.success("Your report has been submitted!")
 
 

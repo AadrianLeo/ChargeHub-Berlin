@@ -1,0 +1,6 @@
+[coverage:run]
+# Exclude files or directories from the coverage report
+omit =
+    src/presentation/streamlit_app.py
+    src\shared\data_processing.py 
+    src\main.py

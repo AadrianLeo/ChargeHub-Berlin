@@ -11,6 +11,7 @@ from charging.application.services.malfunction_report_service import Malfunction
 def render_search_page(df_lstat):
     """Render the Search by Postal Code page."""
     search_service = SearchService(df_lstat)  # Initialize SearchService with data
+    st.title('Search for Postal Charging Location 🔍⚡')
     postal_code = st.text_input("Enter your postal code :", "")
     if postal_code:
         st.write(f"Searching for postal code: {postal_code}")
@@ -33,7 +34,7 @@ def render_search_page(df_lstat):
         else:
             st.warning("No charging stations found for this postal code.")
 def render_submit_suggestion_page(df_suggestions):
-    st.title("Submit Suggestion for New Charging Location")
+    st.title("Submit Suggestion for New Charging Location 📝⚡📍")
     with st.form("suggestion_form"):
         postal_code = st.text_input("Postal Code")
         address = st.text_input("Address")
@@ -49,7 +50,7 @@ def render_malfunction_report_page(df_lstat, df_reports):
     """
     Renders the malfunction report submission page in Streamlit.
     """
-    st.title("Report Malfunction at Charging Station")
+    st.title("Report Malfunction at Charging Station 🚨⚡📢")
     malfunction_service = MalfunctionService(df_reports)
 
     with st.form("malfunction_report"):
@@ -66,9 +67,9 @@ def render_malfunction_report_page(df_lstat, df_reports):
 
 
 def render_view_suggestions_page(df_suggestions):
-    st.title("View Suggestions for New Charging Locations")
+    st.title("View Suggestions for New Charging Locations 👀💡⚡📍")
     st.dataframe(df_suggestions)
 
 def render_view_malfunction_reports_page(df_reports):
-    st.title("View Malfunction Reports")
+    st.title("View Malfunction Reports 👀⚠️📄")
     st.dataframe(df_reports)

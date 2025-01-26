@@ -143,17 +143,18 @@ def make_streamlit_electric_Charging_resid(dfr1, dfr2):
 
 
     # Streamlit app
-    st.title('Heatmaps: Electric charging Stations and Residents')
+    st.title('Home 🏠')
+    st.title('🚗🔌 Charging Stations & 🏡 Residents Heatmaps 🔥🗺️ ')
 
     # Create a radio button for layer selection
     # layer_selection = st.radio("Select Layer", ("Number of Residents per PLZ (Postal code)", "Number of charging Stations per PLZ (Postal code)"))
 
-    layer_selection = st.radio("Select Layer", ("Residents", "Charging_Stations"))
+    layer_selection = st.radio("Select Layer ", ("Residents 🏘️", "Charging_Stations 🚗⚡"))
 
     # Create a Folium map
     m = folium.Map(location=[52.52, 13.40], zoom_start=10)
 
-    if layer_selection == "Residents":
+    if layer_selection == "Residents 🏘️":
         
         # Create a color map for Residents
         color_map = LinearColormap(colors=['yellow', 'red'], vmin=dframe2['Einwohner'].min(), vmax=dframe2['Einwohner'].max())
